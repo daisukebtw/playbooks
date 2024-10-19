@@ -1,0 +1,11 @@
+---
+
+- name: Update apt repositories and upgrade
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Update apt repositories and upgrade
+      apt:
+        upgrade: yes
+        update_cache: yes
