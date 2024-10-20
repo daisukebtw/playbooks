@@ -1,0 +1,43 @@
+---
+
+# to define host use next command to launch playbook "ansible-playbook playbook.yml -e target_host=[IP]" 
+- name: Setup UFW to only allow ports 443/tcp and 22/tcp
+  hosts: "{{ target_host }}"
+  gather_facts: false
+
+  tasks:
+    - name: Install UFW package
+      apt:
+        name: ufw
+        state: present
+
+    - name: Disable IPv6 rules by replacing IPV6=yes with IPV6=no in /etc/default/ufw
+      replace:
+        path: /etc/default/ufw
+        regexp: '^IPV6=yes'
+        replace: 'IPV6=no'
+      notify:
+        - Reload UFW
+    
+    - name: Create UFW allow rules
+      community.general.ufw:
+        rule: allow
+        port: '443'
+        proto: tcp
+
+    - name: Create UFW allow rules
+      community.general.ufw:
+        rule: allow
+        port: '22'
+        from: 10.0.0.0/8
+        proto: tcp
+
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+
+  handlers:
+    - name: Reload UFW
+      community.general.ufw:
+        state: reloaded
