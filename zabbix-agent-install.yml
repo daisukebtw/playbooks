@@ -29,12 +29,8 @@
       apt:
         name: zabbix-agent
         state: present
-
-    - name: Restart Zabbix-Agent service
-      systemd_service:
-        name: zabbix-agent
-        state: restarted
-        enabled: true
+      notify:
+        - Reload Zabbix-Agent
 
     - name: Get Hostname of host
       shell: |
