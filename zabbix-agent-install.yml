@@ -1,0 +1,68 @@
+---
+
+# to define host use next command to launch playbook "ansible-playbook playbook.yml -e target_host=[IP]" 
+- name: Setup Zabbix-Agent on Debian 12 AMD64 host
+  hosts: "{{ target_host }}"
+
+  tasks:
+    - name: Download Zabbix-Agent package
+      get_url: 
+        url: https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
+        dest: /tmp/zabbix-release_latest+debian12_all.deb
+      when: ansible_architecture == "x86_64"
+
+    - name: Download Zabbix-Agent package
+      get_url: 
+        url: https://repo.zabbix.com/zabbix/7.0/debian-arm64/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
+        dest: /tmp/zabbix-release_latest+debian12_all.deb
+      when: ansible_architecture == "aarch64"
+
+    - name: Depackage Zabbix-Agent
+      apt:
+        deb: /tmp/zabbix-release_latest+debian12_all.deb
+
+    - name: Update Repositories
+      apt:
+        update_cache: yes
+
+    - name: Install Zabbix-Agent package
+      apt:
+        name: zabbix-agent
+        state: present
+
+    - name: Restart Zabbix-Agent service
+      systemd_service:
+        name: zabbix-agent
+        state: restarted
+        enabled: true
+
+    - name: Get Hostname of host
+      shell: |
+        hostname
+      register: hostname
+    
+    - name: Replace Server IP in Zabbix-Agent config
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^Server=127.0.0.1'
+        replace: 'Server=10.11.0.50'
+
+    - name: Replace ServerActive IP in Zabbix-Agent config
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^ServerActive=127.0.0.1'
+        replace: 'ServerActive=10.11.0.50'
+
+    - name: Replace ServerActive IP in Zabbix-Agent config
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^Hostname=Zabbix server'
+        replace: 'Hostname={{ hostname.stdout }}'
+      notify:
+        - Reload Zabbix-Agent
+
+  handlers:
+    - name: Reload Zabbix-Agent
+      systemd_service:
+        name: zabbix-agent
+        state: restarted
