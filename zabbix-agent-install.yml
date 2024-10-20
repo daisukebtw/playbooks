@@ -4,6 +4,9 @@
 - name: Setup Zabbix-Agent on Debian 12 AMD64 host
   hosts: "{{ target_host }}"
 
+  vars:
+    zabbix_server: 10.11.0.50
+
   tasks:
     - name: Download Zabbix-Agent package
       get_url: 
@@ -41,13 +44,13 @@
       replace:
         path: /etc/zabbix/zabbix_agentd.conf
         regexp: '^Server=127.0.0.1'
-        replace: 'Server=10.11.0.50'
+        replace: 'Server={{ zabbix_server }}'
 
     - name: Replace ServerActive IP in Zabbix-Agent config
       replace:
         path: /etc/zabbix/zabbix_agentd.conf
         regexp: '^ServerActive=127.0.0.1'
-        replace: 'ServerActive=10.11.0.50'
+        replace: 'ServerActive={{ zabbix_server }}'
 
     - name: Replace ServerActive IP in Zabbix-Agent config
       replace:
