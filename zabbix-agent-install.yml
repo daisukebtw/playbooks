@@ -13,20 +13,18 @@
         url: https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
         dest: /tmp/zabbix-release_latest+debian12_all.deb
       when: ansible_architecture == "x86_64"
+      notify: Update repositories
 
     - name: Download Zabbix-Agent package
       get_url: 
         url: https://repo.zabbix.com/zabbix/7.0/debian-arm64/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
         dest: /tmp/zabbix-release_latest+debian12_all.deb
       when: ansible_architecture == "aarch64"
+      notify: Update repositories
 
     - name: Depackage Zabbix-Agent
       apt:
         deb: /tmp/zabbix-release_latest+debian12_all.deb
-
-    - name: Update Repositories
-      apt:
-        update_cache: yes
 
     - name: Install Zabbix-Agent package
       apt:
@@ -34,11 +32,6 @@
         state: present
       notify:
         - Reload Zabbix-Agent
-
-    - name: Get Hostname of host
-      shell: |
-        hostname
-      register: hostname
     
     - name: Replace Server IP in Zabbix-Agent config
       replace:
@@ -56,7 +49,7 @@
       replace:
         path: /etc/zabbix/zabbix_agentd.conf
         regexp: '^Hostname=Zabbix server'
-        replace: 'Hostname={{ hostname.stdout }}'
+        replace: 'Hostname={{ ansible_hostname }}'
       notify:
         - Reload Zabbix-Agent
 
@@ -65,3 +58,7 @@
       systemd_service:
         name: zabbix-agent
         state: restarted
+    
+    - name: Update repositories
+      apt:
+        update_cache: yes
