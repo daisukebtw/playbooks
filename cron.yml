@@ -1,0 +1,17 @@
+---
+
+- name: Add update cronjob to proxmox host
+  hosts: proxmox
+  gather_facts: false
+
+  tasks:
+    - name: Add update cronjob to proxmox hosts
+      cron:
+        name: Update
+        state: present
+        minute: "0"
+        hour: "6"
+        day: "*"
+        month: "*"
+        weekday: "6"
+        job: apt update && apt upgrade -y
