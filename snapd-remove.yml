@@ -1,0 +1,29 @@
+---
+
+- name: remove snapd from ubuntu server 22.04
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: remove snapd apps
+      community.general.snap:
+        name:
+          - lxd
+          - core20
+          - snapd
+        state: absent
+
+    - name: remove snap directories
+      shell: rm -rf /snap ~/snap
+
+    - name: mask snap services
+      shell: |
+        systemctl stop snapd
+        systemctl disable snapd
+        systemctl mask snapd
+
+    - name: remove snapd
+      apt:
+        name: snapd
+        state: absent
+        purge: yes
