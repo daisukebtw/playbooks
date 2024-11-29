@@ -8,11 +8,12 @@
   tasks:
     - name: remove snapd apps
       community.general.snap:
-        name:
-          - lxd
-          - core20
-          - snapd
+        name: "{{ item }}"
         state: absent
+      loop:
+        - lxd
+        - core20
+        - snapd
 
     - name: remove snap directories
       shell: rm -rf /snap ~/snap
