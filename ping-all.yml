@@ -3,5 +3,7 @@
 - name: Ping all hosts
   host: all
   gather_facts: false
+
   tasks:
     - ping:
+
