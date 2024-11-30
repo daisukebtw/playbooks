@@ -1,0 +1,11 @@
+---
+
+stages:
+  - test
+
+image: registry.gitlab.com/daisukebtw/playbooks
+
+build_job:
+  stage: test
+  script:
+    - ansible-lint .
