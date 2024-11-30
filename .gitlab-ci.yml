@@ -12,4 +12,4 @@ build_job:
 #    LC_ALL: en_US.UTF-8
     ANSIBLE_CONFIG: /etc/ansible/ansible.cfg
   script:
-    - for i in $( ls | grep *.yml ); do ansible-lint $i ; done
+    - for i in $( ls | grep *.yml ); do ansible-lint -v $i ; done
