@@ -8,8 +8,8 @@ image: registry.gitlab.com/daisukebtw/playbooks
 build_job:
   stage: lint
   variables:
-    LANG: en_US.UTF-8
-    LC_ALL: en_US.UTF-8
+    LANG: C.UTF-8
+    LC_ALL: C.UTF-8
     ANSIBLE_CONFIG: ./ansible.cfg
   script:
     - ansible-lint -v .
