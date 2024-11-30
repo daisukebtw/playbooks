@@ -12,4 +12,4 @@ build_job:
     LC_ALL: C.UTF-8
     ANSIBLE_CONFIG: ./ansible.cfg
   script:
-    - ansible-lint -v .
+    - ansible-lint -vvv .
