@@ -1,12 +1,15 @@
 ---
 
 stages:
-  - test
+  - lint
 
 image: registry.gitlab.com/daisukebtw/playbooks
 
 build_job:
-  stage: test
+  stage: lint
+  variables:
+    LANG: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
+    ANSIBLE_CONFIG: /etc/ansible/ansible.cfg
   script:
-    - ls -la
-    - ansible-lint -v .
+    - for i in $( ls | grep *.yml ); do ansible-lint $i ; done
