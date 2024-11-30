@@ -9,7 +9,7 @@ build_job:
   stage: lint
   variables:
     LANG: en_US.UTF-8
-#    LC_ALL: en_US.UTF-8
-    ANSIBLE_CONFIG: /etc/ansible/ansible.cfg
+    LC_ALL: en_US.UTF-8
+    ANSIBLE_CONFIG: ./ansible.cfg
   script:
     - for i in $( ls | grep *.yml ); do ansible-lint -v $i ; done
