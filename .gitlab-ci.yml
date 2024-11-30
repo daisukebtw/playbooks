@@ -8,4 +8,5 @@ image: registry.gitlab.com/daisukebtw/playbooks
 build_job:
   stage: test
   script:
-    - ansible-lint .
+    - ls -la
+    - ansible-lint -v .
