@@ -15,3 +15,4 @@
         month: "*"
         weekday: "6"
         job: apt update && apt upgrade -y
+        
