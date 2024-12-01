@@ -6,7 +6,7 @@
   gather_facts: false
 
   tasks:
-    - name: remove snapd apps
+    - name: Remove snapd apps
       community.general.snap:
         name: "{{ item }}"
         state: absent
@@ -15,17 +15,19 @@
         - core20
         - snapd
 
-    - name: remove snap directories
-      shell: rm -rf /snap ~/snap
+    - name: Remove snap directories
+      command: rm -rf /snap ~/snap
 
-    - name: mask snap services
-      shell: |
-        systemctl stop snapd
-        systemctl disable snapd
-        systemctl mask snapd
+    - name: Mask snap services
+      ansible.builtin.systemd_service:
+        name: snapd
+        enabled: false
+        masked: yes
+        state: stopped
 
-    - name: remove snapd
-      apt:
+    - name: Remove snapd
+      ansible.builtin.apt:
         name: snapd
         state: absent
         purge: yes
+
