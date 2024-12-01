@@ -2,7 +2,7 @@
 
 # to define host use next command to launch playbook "ansible-playbook playbook.yml -e target_host=[IP]" 
 - name: Setup Zabbix-Agent on Debian 12 AMD64 host
-  hosts: "{{ target_host }}"
+  hosts: all
 
   vars:
     zabbix_server: 10.11.0.50
