@@ -1,6 +1,6 @@
 ---
 
-- name: remove snapd from ubuntu server 22.04
+- name: Remove snapd from ubuntu server 22.04
   become: true
   hosts: all
   gather_facts: false
@@ -30,4 +30,3 @@
         name: snapd
         state: absent
         purge: yes
-
