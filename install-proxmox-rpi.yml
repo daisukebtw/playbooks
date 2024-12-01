@@ -30,11 +30,11 @@
         update_cache: true
 
     - name: Get IP address of current machine
-      shell: hostname -I
+      command: hostname -I
       register: ipaddress
 
     - name: Get hostname of current machine
-      shell: cat /etc/hostname
+      command: cat /etc/hostname
       register: hostname
 
     - name: Append /etc/hosts with current machine IP address
@@ -51,8 +51,11 @@
         password: "{{ new_root_password_encrypted }}"
 
     - name: Add Proxmox Port Repositories
-      shell: |
+      shell:
         curl -L https://mirrors.apqa.cn/proxmox/debian/pveport.gpg | tee /usr/share/keyrings/pveport.gpg >/dev/null
+
+    - name: Add Proxmox Port to sources list
+      shell:
         echo "deb [arch=arm64 signed-by=/usr/share/keyrings/pveport.gpg] https://mirrors.apqa.cn/proxmox/debian/pve bookworm port" | tee /etc/apt/sources.list.d/pveport.list
 
     - name: Update Repositories
