@@ -6,6 +6,6 @@
 
   tasks:
     - name: Ping
-    - ping:
+      ping:
 
 
