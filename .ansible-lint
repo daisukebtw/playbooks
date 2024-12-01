@@ -2,3 +2,7 @@ skip_list:
   - yaml[truthy]
   - fqcn[action-core]
   - yaml[trailing-spaces]
+  - yaml[line-length]
+
+exclude:
+  - "install-proxmox-rpi.yml"
