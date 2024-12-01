@@ -1,2 +1,4 @@
 skip_list:
   - yaml[truthy]
+  - fqcn[action-core]
+  - yaml[trailing-spaces]
