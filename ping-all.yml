@@ -1,7 +1,7 @@
 ---
 
 - name: Ping all hosts
-  host: all
+  hosts: all
   gather_facts: false
 
   tasks:
