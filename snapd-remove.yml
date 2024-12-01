@@ -16,7 +16,12 @@
         - snapd
 
     - name: Remove snap directories
-      command: rm -rf /snap /root/snap
+      file:
+        state: absent
+        path: "{{ item }}"
+      loop:
+        - /snap
+        - /root/snap
 
     - name: Mask snap services
       systemd_service:
