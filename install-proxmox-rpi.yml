@@ -2,7 +2,7 @@
 
 # to define host use next command to launch playbook "ansible-playbook playbook.yml -e target_host=[IP]" 
 - name: Install Proxmox on Raspberry PI
-  hosts: "{{ target_host }}"
+  hosts: all
   become: true
   gather_facts: false
 
