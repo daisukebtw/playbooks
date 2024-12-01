@@ -12,6 +12,7 @@
       get_url: 
         url: https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
         dest: /tmp/zabbix-release_latest+debian12_all.deb
+        mode: 744
       when: ansible_architecture == "x86_64"
       notify: Update repositories
 
@@ -19,6 +20,7 @@
       get_url: 
         url: https://repo.zabbix.com/zabbix/7.0/debian-arm64/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb
         dest: /tmp/zabbix-release_latest+debian12_all.deb
+        mode: 744
       when: ansible_architecture == "aarch64"
       notify: Update repositories
 
