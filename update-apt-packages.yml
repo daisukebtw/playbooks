@@ -6,6 +6,6 @@
 
   tasks:
     - name: Update apt repositories and upgrade
-      apt:
+      ansible.builtin.apt:
         upgrade: yes
         update_cache: yes
