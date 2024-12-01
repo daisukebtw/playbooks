@@ -1,12 +1,12 @@
 ---
 
 - name: Add update cronjob to proxmox host
-  hosts: proxmox
+  hosts: all
   gather_facts: false
 
   tasks:
     - name: Add update cronjob to proxmox hosts
-      cron:
+      ansible.builtin.cron:
         name: Update
         state: present
         minute: "0"
