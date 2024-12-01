@@ -5,7 +5,7 @@ stages:
 
 image: registry.gitlab.com/daisukebtw/playbooks
 
-build_job:
+lint_job:
   stage: lint
   variables:
     LANG: C.UTF-8
