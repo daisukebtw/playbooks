@@ -2,7 +2,7 @@
 
 # to define host use next command to launch playbook "ansible-playbook playbook.yml -e target_host=[IP]" 
 - name: Setup UFW to only allow ports 443/tcp and 22/tcp
-  hosts: "{{ target_host }}"
+  hosts: all
   gather_facts: false
 
   tasks:
