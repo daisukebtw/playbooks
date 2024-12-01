@@ -16,7 +16,7 @@
         - snapd
 
     - name: Remove snap directories
-      ansible.builtin.command: rm -rf /snap ~/snap
+      ansible.builtin.command: rm -rf /snap /root/snap
 
     - name: Mask snap services
       ansible.builtin.systemd_service:
