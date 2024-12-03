@@ -37,7 +37,7 @@
         state: present
 
     - name: Add multiple authorized keys
-      authorized_key:
+      ansible.posix.authorized_key:
         user: root
         state: present
         key: '{{ item }}'
