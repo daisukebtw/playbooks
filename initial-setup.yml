@@ -26,7 +26,7 @@
         cache_valid_time: 86400
 
     - name: Remove snapd
-      import_tasks: snapd-remove.yml
+      import_tasks: import_tasks/snapd-remove.yml
 
     - name: Install packages
       apt:
