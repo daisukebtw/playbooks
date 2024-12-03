@@ -7,3 +7,4 @@ skip_list:
 
 exclude_paths:
   - excluded/
+  - import_tasks/
