@@ -1,15 +1,11 @@
 ---
+# Used as Imported task
 
-- name: Remove snapd from ubuntu server 22.04
-  become: true
-  hosts: all
-  gather_facts: false
-
-  tasks:
     - name: Remove snapd apps
       community.general.snap:
         name: "{{ item }}"
         state: absent
+      ignore_errors: true
       loop:
         - lxd
         - core20
