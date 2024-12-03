@@ -1,0 +1,33 @@
+---
+# Used as Imported task
+
+- name: Remove snapd apps
+  community.general.snap:
+    name: "{{ item }}"
+    state: absent
+  ignore_errors: true
+  loop:
+    - lxd
+    - core20
+    - snapd
+
+- name: Remove snap directories
+  file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - /snap
+    - /root/snap
+
+- name: Mask snap services
+  systemd_service:
+    name: snapd
+    enabled: false
+    masked: yes
+    state: stopped
+
+- name: Remove snapd
+  apt:
+    name: snapd
+    state: absent
+    purge: yes
