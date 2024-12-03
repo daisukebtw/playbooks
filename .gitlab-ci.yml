@@ -1,11 +1,18 @@
 ---
 
 stages:
+  - build
   - lint
 
-image: registry.gitlab.com/daisukebtw/playbooks
+build:
+  image: 20.10.16
+  stage: build
+  script:
+    - docker build -t registry.gitlab.com/daisukebtw/playbooks .
+    - docker push registry.gitlab.com/daisukebtw/playbooks
 
-lint_job:
+lint:
+  image: registry.gitlab.com/daisukebtw/playbooks
   stage: lint
   variables:
     LANG: C.UTF-8
