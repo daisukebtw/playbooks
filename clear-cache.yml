@@ -1,9 +1,0 @@
----
-
-- name: Clear system cache
-  hosts: all
-  gather_facts: false
-
-  tasks:
-    - name: Clear system cache
-      command: sh -c 'echo 3 >  /proc/sys/vm/drop_caches'
