@@ -1,0 +1,10 @@
+---
+- name: Update talosctl configs
+  ansible.builtin.command: 
+    cmd: talosctl config endpoint {{ controlplane_1 }} --talosconfig {{ config_file }}
+  changed_when: true
+
+- name: Update talosctl configs
+  ansible.builtin.command: 
+    cmd: talosctl config node {{ controlplane_1 }} --talosconfig {{ config_file }}
+  changed_when: true

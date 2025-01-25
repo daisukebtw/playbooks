@@ -1,0 +1,12 @@
+- name: Add metrics server repo
+  ansible.builtin.command:
+    cmd: helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+
+- name: Install metrics server
+  ansible.builtin.command:
+    cmd: |
+      helm upgrade \
+        --namespace kube-system \
+        --install metrics-server metrics-server/metrics-server \
+        --set args={--kubelet-insecure-tls}
+        --set replicas=3

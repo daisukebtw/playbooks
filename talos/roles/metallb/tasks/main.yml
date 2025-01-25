@@ -1,0 +1,17 @@
+- name: Set KUBECONFIG
+  set_fact:
+    role_environment:
+      KUBECONFIG: {{ kubeconfig_path }}
+
+- name: Create MetalLB namespace
+  kubernetes.core.k8s:
+    name: metallb-system
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Deploy MetalLB
+  kubernetes.core.k8s:
+    state: present
+    src: https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
+    namespace: metallb-system
