@@ -1,3 +1,9 @@
+# For Semaphore
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: present
+
 - name: Install helm
   ansible.builtin.command:
     cmd: |
