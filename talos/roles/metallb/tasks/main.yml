@@ -1,7 +1,7 @@
 - name: Set KUBECONFIG
   set_fact:
     role_environment:
-      KUBECONFIG: {{ kubeconfig_path }}
+      KUBECONFIG: "{{ kubeconfig_path }}"
 
 - name: Create MetalLB namespace
   kubernetes.core.k8s:
