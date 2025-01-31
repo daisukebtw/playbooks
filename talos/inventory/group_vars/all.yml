@@ -11,7 +11,7 @@ worker_3: null
 
 config_directory: "/home/{{ ansible_user }}/.talos"
 config_file: "/home/{{ ansible_user }}/.talos/talosconfig"
-kubeconfig_path: "/Users/bezdar/.kube/kubeconfig"
+kubeconfig_path: "/Users/bezdar/.kube/config"
 
 ansible_user: bezdar
 ansible_become: true
