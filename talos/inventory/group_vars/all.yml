@@ -1,0 +1,18 @@
+controlplane_1: 10.10.30.51
+controlplane_2: 10.10.30.52
+controlplane_3: 10.10.30.53
+
+cluster_name: talos-cluster-1
+cluster_vip: 10.10.30.50
+
+worker_1: null
+worker_2: null
+worker_3: null
+
+config_directory: "/{{ ansible_user }}/.talos"
+config_file: "/{{ ansible_user }}/.talos/talosconfig"
+kubeconfig_path: "/root/.kube/config"
+
+ansible_user: root
+ansible_become: true
+ansible_become_method: sudo

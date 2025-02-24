@@ -1,0 +1,48 @@
+- name: Install requirements
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - install-reqs
+
+- name: Talos generate config
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - generate-config
+
+- name: Talos apply config
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - apply-config
+
+- name: Talos bootstrap cluster
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - bootstrap-cluster
+
+- name: Install cilium
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - cilium
+
+- name: Install metrics server
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - metrics-server
+
+- name: Install metallb
+  hosts: ansible
+  become: true
+  gather_facts: true
+  roles:
+    - metallb
