@@ -1,7 +1,7 @@
 ---
 - name: Generate secrets
   ansible.builtin.command:
-    cmd: talosctl gen secrets -o secrets.yml
+    cmd: talosctl gen secrets -o {{ config_directory }}/secrets.yml
   changed_when: true
 
 - name: Copy patch file to local machine
@@ -11,5 +11,5 @@
 
 - name: Generate config
   ansible.builtin.command:
-    cmd: talosctl gen config --with-secrets secrets.yml {{ cluster_name }} https://{{ cluster_vip }}:6443 --config-patch @patch.yml
+    cmd: talosctl gen config --with-secrets {{ config_directory }}/secrets.yml {{ cluster_name }} https://{{ cluster_vip }}:6443 --config-patch @/tmp/patch.yml -o {{ config_directory }}
   changed_when: true

@@ -2,7 +2,7 @@
   hosts: ansible
   become: true
   gather_facts: true
-  roles: 
+  roles:
     - install-reqs
 
 - name: Talos generate config
@@ -25,13 +25,6 @@
   gather_facts: true
   roles:
     - bootstrap-cluster
-
-- name: Add worker nodes
-  hosts: ansible
-  become: true
-  gather_facts: true
-  roles:
-    - add-workers
 
 - name: Install cilium
   hosts: ansible
